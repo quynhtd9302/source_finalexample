@@ -8,7 +8,7 @@
                                                 ~{/fragments/app-fragments :: copyright}
                                                )}">
 <head>
-    <title>Đặt hàng thành công - QuynhHill Coffee</title>
+    <title>Đặt hàng thành công - Chain Coffee</title>
 </head>
 <body>
 
@@ -16,14 +16,14 @@
     <div class="container py-5 text-center">
         <i class="ti ti-circle-check" style="font-size: 64px; color: var(--coffee);"></i>
         <h4 class="fw-semibold mt-3">Đặt hàng thành công!</h4>
-        <p class="text-muted">Cảm ơn bạn đã đặt hàng tại QuynhHill Coffee.</p>
+        <p class="text-muted">Cảm ơn bạn đã đặt hàng tại Chain Coffee.</p>
         <p th:if="${order != null}">Mã đơn hàng: <strong th:text="'#' + ${order.id}">#1</strong> —
             Tổng tiền: <strong th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</strong></p>
         <p th:if="${order != null}">Phương thức thanh toán:
             <strong th:text="${order.paymentMethod == 'BANK_TRANSFER'} ? 'Chuyển khoản ngân hàng' : 'Thanh toán khi nhận hàng (COD)'">COD</strong></p>
         <div th:if="${order != null and order.paymentMethod == 'BANK_TRANSFER'}"
              class="bg-light-coffee rounded p-3 small mt-2 mb-3 mx-auto" style="max-width: 420px; text-align: left;">
-            Chủ tài khoản: <strong>CÔNG TY QUYNHHILL COFFEE</strong><br/>
+            Chủ tài khoản: <strong>CÔNG TY CHAIN COFFEE</strong><br/>
             Số tài khoản: <strong>0123 456 789</strong> — Ngân hàng Vietcombank<br/>
             Nội dung chuyển khoản: Ghi rõ mã đơn hàng <strong th:text="'#' + ${order.id}"></strong>.
         </div>

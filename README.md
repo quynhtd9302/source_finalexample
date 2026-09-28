@@ -1,4 +1,4 @@
-# QuynhHill Coffee — Quản lý chuỗi cửa hàng cà phê
+# Chain Coffee — Quản lý chuỗi cửa hàng cà phê
 
 Ứng dụng web quản lý chuỗi cửa hàng cà phê: khách hàng xem thực đơn, đặt hàng online chọn cửa hàng nhận đơn; quản trị viên quản lý cửa hàng, danh mục, sản phẩm, đơn hàng và người dùng.
 

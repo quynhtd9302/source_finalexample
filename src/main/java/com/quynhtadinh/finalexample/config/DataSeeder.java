@@ -59,7 +59,7 @@ public class DataSeeder implements CommandLineRunner {
 
 		User admin = new User();
 		admin.setUsername("admin");
-		admin.setEmail("admin@quynhhillcoffee.vn");
+		admin.setEmail("admin@chaincoffee.vn");
 		admin.setPassword(passwordEncoder.encode("Admin@123"));
 		HashSet<Role> adminRoles = new HashSet<>();
 		adminRoles.add(roleUser);
@@ -83,15 +83,15 @@ public class DataSeeder implements CommandLineRunner {
 	}
 
 	private void seedStores() {
-		storeRepository.save(newStore("HN01", "QuynhHill Coffee - Hoàn Kiếm",
+		storeRepository.save(newStore("HN01", "Chain Coffee - Hoàn Kiếm",
 				"8D Phố Hàm Long, Hoàn Kiếm, Hà Nội", "024 3934 1234",
-				"hoankiem@quynhhillcoffee.vn", "07:00", "22:00", "/images/coffee/store-1.svg"));
-		storeRepository.save(newStore("HN02", "QuynhHill Coffee - Cầu Giấy",
+				"hoankiem@chaincoffee.vn", "07:00", "22:00", "/images/coffee/store-1.svg"));
+		storeRepository.save(newStore("HN02", "Chain Coffee - Cầu Giấy",
 				"150 Xuân Thuỷ, Cầu Giấy, Hà Nội", "024 3768 5678",
-				"caugiay@quynhhillcoffee.vn", "07:00", "22:30", "/images/coffee/store-2.svg"));
-		storeRepository.save(newStore("DN01", "QuynhHill Coffee - Đà Nẵng",
+				"caugiay@chaincoffee.vn", "07:00", "22:30", "/images/coffee/store-2.svg"));
+		storeRepository.save(newStore("DN01", "Chain Coffee - Đà Nẵng",
 				"22 Bạch Đằng, Hải Châu, Đà Nẵng", "0236 3822 9999",
-				"danang@quynhhillcoffee.vn", "06:30", "22:00", "/images/coffee/store-3.svg"));
+				"danang@chaincoffee.vn", "06:30", "22:00", "/images/coffee/store-3.svg"));
 	}
 
 	private void seedMenu(StatusCategory statusCategory, StatusSubCategory statusSubCategory, StatusProduct inStock) {
@@ -102,29 +102,29 @@ public class DataSeeder implements CommandLineRunner {
 		SubCategory freeze = seedCategoryTree("Đá xay", "Đá xay", statusCategory, statusSubCategory);
 		SubCategory banhNgot = seedCategoryTree("Bánh ngọt", "Bánh ngọt", statusCategory, statusSubCategory);
 
-		seedProduct("CF001", "Cà phê đen đá", 25000, phin, inStock, "/images/coffee/coffee-cup.svg",
+		seedProduct("CF001", "Cà phê đen đá", 25000, phin, inStock, "/images/coffee/products/ca-phe-den-da.jpg",
 				"Cà phê phin truyền thống, đậm đà, phục vụ cùng đá.");
-		seedProduct("CF002", "Cà phê sữa đá", 29000, phin, inStock, "/images/coffee/coffee-cup.svg",
+		seedProduct("CF002", "Cà phê sữa đá", 29000, phin, inStock, "/images/coffee/products/ca-phe-sua-da.jpg",
 				"Cà phê phin hoà cùng sữa đặc béo ngậy.");
-		seedProduct("CF003", "Bạc xỉu", 32000, phin, inStock, "/images/coffee/coffee-cup.svg",
+		seedProduct("CF003", "Bạc xỉu", 32000, phin, inStock, "/images/coffee/products/bac-xiu.jpg",
 				"Nhiều sữa, ít cà phê, vị ngọt dịu dễ uống.");
-		seedProduct("CF004", "Espresso", 35000, phaMay, inStock, "/images/coffee/espresso.svg",
+		seedProduct("CF004", "Espresso", 35000, phaMay, inStock, "/images/coffee/products/espresso.jpg",
 				"Chiết xuất từ máy pha chuyên nghiệp, đậm vị nguyên bản.");
-		seedProduct("CF005", "Americano", 39000, phaMay, inStock, "/images/coffee/espresso.svg",
+		seedProduct("CF005", "Americano", 39000, phaMay, inStock, "/images/coffee/products/americano.jpg",
 				"Espresso pha loãng cùng nước nóng hoặc đá.");
-		seedProduct("CF006", "Cappuccino", 45000, phaMay, inStock, "/images/coffee/espresso.svg",
+		seedProduct("CF006", "Cappuccino", 45000, phaMay, inStock, "/images/coffee/products/cappuccino.jpg",
 				"Espresso, sữa nóng và lớp bọt sữa dày mịn.");
-		seedProduct("CF007", "Latte", 45000, phaMay, inStock, "/images/coffee/espresso.svg",
+		seedProduct("CF007", "Latte", 45000, phaMay, inStock, "/images/coffee/products/latte.jpg",
 				"Espresso hoà quyện cùng sữa tươi đánh bông.");
-		seedProduct("TR001", "Trà đào cam sả", 45000, traTraiCay, inStock, "/images/coffee/tea.svg",
+		seedProduct("TR001", "Trà đào cam sả", 45000, traTraiCay, inStock, "/images/coffee/products/tra-dao-cam-sa.jpg",
 				"Trà trái cây thanh mát với đào, cam và sả.");
-		seedProduct("TR002", "Trà vải", 42000, traTraiCay, inStock, "/images/coffee/tea.svg",
+		seedProduct("TR002", "Trà vải", 42000, traTraiCay, inStock, "/images/coffee/products/tra-vai.jpg",
 				"Trà trái cây vị vải ngọt thanh, thơm mát.");
-		seedProduct("TR003", "Trà sữa trân châu", 40000, traSua, inStock, "/images/coffee/tea.svg",
+		seedProduct("TR003", "Trà sữa trân châu", 40000, traSua, inStock, "/images/coffee/products/tra-sua-tran-chau.jpg",
 				"Trà sữa béo thơm cùng trân châu đường đen.");
-		seedProduct("FZ001", "Freeze việt quất", 49000, freeze, inStock, "/images/coffee/freeze.svg",
+		seedProduct("FZ001", "Freeze việt quất", 49000, freeze, inStock, "/images/coffee/products/freeze-viet-quat.jpg",
 				"Đá xay việt quất chua ngọt, mát lạnh sảng khoái.");
-		seedProduct("BK001", "Bánh croissant bơ", 35000, banhNgot, inStock, "/images/coffee/pastry.svg",
+		seedProduct("BK001", "Bánh croissant bơ", 35000, banhNgot, inStock, "/images/coffee/products/banh-croissant-bo.jpg",
 				"Bánh sừng bò bơ Pháp, lớp vỏ giòn xốp nhiều lớp.");
 	}
 
