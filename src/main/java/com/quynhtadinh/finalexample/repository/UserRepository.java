@@ -14,8 +14,8 @@ import com.quynhtadinh.finalexample.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long>,PagingAndSortingRepository<User, Long> {
     User findByUsername(String username);
-    
+
 	@Query("SELECT e FROM User e WHERE e.username LIKE %:keyword% ")
-	Page<User> FindAllByUserName(Optional<String> keyword,Pageable pageable);
+	Page<User> findAllByUsername(Optional<String> keyword,Pageable pageable);
 
 }

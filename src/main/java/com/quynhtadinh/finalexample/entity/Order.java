@@ -28,14 +28,19 @@ public class Order {
     private double totalPrice;
     private String note;
     private Date createdDate;
+    private String paymentMethod;
 
     @OneToOne
     @JoinColumn(name = "shipping_id")
     private Shipping shipping;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
@@ -68,6 +73,14 @@ public class Order {
 		this.note = note;
 	}
 
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -84,12 +97,20 @@ public class Order {
 		this.shipping = shipping;
 	}
 
-	public Account getAccount() {
-		return account;
+	public User getUser() {
+		return user;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
 	}
 
 	public StatusOrder getStatus() {

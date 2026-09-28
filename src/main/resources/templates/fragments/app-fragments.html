@@ -6,218 +6,113 @@
 </head>
 <body>
 
+<nav th:fragment="nav-default" class="navbar navbar-expand-lg coffee-navbar fixed-top py-2">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
+            <img th:src="@{/images/coffee/logo.svg}" width="40" height="40" alt="QuynhHill Coffee" />
+            <span class="fw-semibold fs-5">QuynhHill Coffee</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<!-- Default nav bar -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/products}">Thực đơn</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/stores}">Cửa hàng</a>
+                </li>
+            </ul>
 
-<nav th:fragment="nav-default" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"
-     style="height: 60; opacity: .9; background-color: #000000 !important">
-<!--     <a class="navbar-brand" href="./home.html">Quynh Hill</a> -->
-              <a href="./home" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/dark-logo.png" width="180" height="76" alt="" />
-          </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+            <form class="d-flex me-3" th:action="@{/search}" method="get">
+                <input class="form-control form-control-sm me-2" type="search" name="keyword" placeholder="Tìm món...">
+                <input type="hidden" name="page" value="1">
+                <button class="btn btn-sm btn-outline-coffee bg-white" type="submit"><i class="ti ti-search"></i></button>
+            </form>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="btn btn-outline-warning ml-5" style="border: none;"
-                   th:href="@{/products}">TRANG CHỦ</i></a>
-            </li>
-          
- 			<li class="nav-item dropdown">
-		        <a class="btn btn-outline-warning ml-5" style="border: none;" 
-		        th:href="@{/ui-about}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          THÔNG TIN
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" th:href="@{/ui-about}">Về chúng tôi</a>
-		          <a class="dropdown-item" th:href="@{/ui-about}">Về cửa hàng</a>
-		          <a class="dropdown-item" th:href="@{/ui-about}">Về khách hàng</a>
-		        </div>
-      		</li>
-           
-            <li class="nav-item dropdown">
-		        <a class="btn btn-outline-warning ml-5" style="border: none;" th:href="@{/ui-menu}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          THỰC ĐƠN
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" th:href="@{/ui-menu}">Đầu bếp giới thiệu</a>
-		          <a class="dropdown-item" th:href="@{/ui-menu}">Đồ ăn</a>
-		          <a class="dropdown-item" th:href="@{/ui-menu}">Đồ uống</a>
-		          <a class="dropdown-item" th:href="@{/ui-menu}">Combo theo set</a>
-		        </div>
-		    </li>
-
-            <li class="nav-item">
-                <a class="btn btn-outline-warning ml-5" style="border: none;"
-                   th:href="@{/ui-promotion}">KHUYẾN MÃI</i></a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="btn btn-outline-warning ml-5" style="border: none;"
-                    th:href="@{/ui-news}">TIN TỨC</i></a>
-            </li>
-        </ul>
-
-
-        <form th:action="@{/search}" id="frm">
-            <div class="search-box">
-                <input class="search-txt" name="keyword" type="text" placeholder="Type to search">
-                <input type="hidden" th:value="${page}" name="page">
-                <a th:onclick="this.form.submit()" class="search-btn">
-                    <i class="fas fa-search text-center" style="margin-top:12px;color: white"></i>
-                </a>
-            </div>
-        </form>
-        <ul class="navbar-nav ml-auto mr-2">
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle mr-5" href="#" id="navbarDropdown"
-                   style="color: #000000; font-size: 2.5rem" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-cart-plus mr-2" style="color: #e9ecef; font-size: 2.5rem"></i>
-                    <sup th:if="${session.listCart} and ${session.listCart.size()}!=0" style="color: #cccccc !important"
-                         th:text="${session.listCart.size()}">5</sup>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <div class="popup-list-cart">
-                        <table>
-                            <tbody>
-                            <tr th:each="c: ${session.listCart}">
-                                <td class="px-2"><img th:src="'images/'+*{c.productImageUrl}"></td>
-                                <td class="f-small"><a href="#" th:text="*{c.productName}">Repair Tool</a></td>
-                                <td class="px-3 f-small" th:text="' x '+ *{c.quantity}">x 1</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
+            <ul class="navbar-nav align-items-lg-center gap-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link position-relative" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ti ti-shopping-cart fs-4"></i>
+                        <span th:if="${session.listCart} and ${session.listCart.size()}!=0"
+                              class="badge rounded-pill cart-badge position-absolute top-0 start-100 translate-middle"
+                              th:text="${session.listCart.size()}">0</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="cartDropdown" style="min-width: 260px;">
+                        <div th:if="${session.listCart == null or session.listCart.size() == 0}" class="text-center text-muted py-2">
+                            Giỏ hàng trống
+                        </div>
+                        <div th:each="c: ${session.listCart}" class="d-flex align-items-center gap-2 mb-2">
+                            <img th:src="${c.productImageUrl}" width="36" height="36" style="object-fit:cover" class="rounded" />
+                            <div class="flex-grow-1">
+                                <div class="small" th:text="${c.productName}">Tên sản phẩm</div>
+                                <div class="small text-muted" th:text="'x ' + ${c.quantity}">x 1</div>
+                            </div>
+                        </div>
+                        <a th:if="${session.listCart} and ${session.listCart.size()}!=0" class="btn btn-coffee btn-sm w-100" th:href="@{/carts}">Xem giỏ hàng</a>
                     </div>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" th:href="@{/carts}">Danh sách giỏ hàng</a>
-                </div>
-            </li>
+                </li>
 
-            <!-- Example single danger button -->
-            <div class="btn-group">
-                <a class="nav-link btn btn-outline-primary mt-2 ml-2"
-                   href="#">
-                         <span th:utext="${#request.userPrincipal.name}"></span>
-                    <!-- Tạ Đình Quỳnh -->
-                    <i class="fas fa-user-plus ml-2"></i>
-                </a>
-
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Trang cá nhân</a>
-                    <a class="dropdown-item" href="#"
-                       onclick="openOrder()">Đặt Hàng</a>
-                    <a class="dropdown-item" href="#">Lịch sử</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a>
-                </div>
-            </div>
-        </ul>
+                <li class="nav-item dropdown" th:if="${#request.userPrincipal != null}">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ti ti-user-circle fs-4"></i>
+                        <span th:text="${#request.userPrincipal.name}">user</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                        <a class="dropdown-item" th:href="@{/carts}">Giỏ hàng của tôi</a>
+                        <div class="dropdown-divider"></div>
+                        <form th:action="@{/logout}" method="post" class="px-3">
+                            <button type="submit" class="btn btn-sm btn-outline-coffee w-100">Đăng xuất</button>
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item" th:if="${#request.userPrincipal == null}">
+                    <a class="btn btn-coffee btn-sm" th:href="@{/login}">Đăng nhập</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
-<!-- Admin Navigator -->
 
-<ul th:fragment="nav-admin">
-    <li><a th:href="@{/admin/products}">Quản Lý Sản Phẩm</a></li>
-    <li><a th:href="@{/admin/orders}">Quản Lý Giỏ Hàng</a></li>
-</ul>
-
-
-<div th:fragment="copyright">
-    <section id="footer">
-        <div class="container">
-            <div class="row text-center text-xs-center text-sm-left text-md-left">
-                 <div class="col-xs-12 col-sm-4 col-md-4">
-                    <ul class="list-unstyled quick-links">
-
-              <a href="./home" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/dark-logo.png" width="300" height="200" alt="" />
-          </a>                    </ul>
-                </div> 
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <h5>Gới thiệu Website</h5>
-                    <ul class="list-unstyled quick-links">
-                        <li><a href="/homeview"><i
-                                class="fa fa-angle-double-right"></i>Trang chủ</a></li>
-                        <li><a href="talble"><i class="fa fa-angle-double-right"></i>Thông tin</a></li>
-                        <li><a href="#"><i
-                                class="fa fa-angle-double-right"></i>Thực đơn</a></li>
-                        <li><a href="#"><i
-                                class="fa fa-angle-double-right"></i>Khuyến mãi</a></li>
-                        <li><a href="#"><i
-                                class="fa fa-angle-double-right"></i>Tin  tức</a></li>
-                        <li><a href="
-                                http://localhost:8899/login">
-                            <i class="fa fa-angle-double-right"></i>Đăng nhập</a></li>
-                    </ul>
+<div th:fragment="copyright" class="coffee-footer pt-5 pb-3 mt-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <img th:src="@{/images/coffee/logo.svg}" width="40" height="40" alt="QuynhHill Coffee" />
+                    <span class="fw-semibold fs-5">QuynhHill Coffee</span>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <h5>Liên hệ</h5>
-
-                    <ul class="list-unstyled quick-links">
-                        <li><a><i class="fas fa-phone-volume"></i>0984368800</a><a><i
-                                class="fa fa-envelope ml-3"></i>tdquynh09@gmail.com</a></li>
-                        <li><a
-                                href="https://www.google.com/maps/dir/8d+P.H%C3%A0m+Long,+Phan+Chu+Trinh,+Ho%C3%A0n+Ki%E1%BA%BFm,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/8d+P.H%C3%A0m+Long,+Phan+Chu+Trinh,+Ho%C3%A0n+Ki%E1%BA%BFm,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/@21.018737,105.849347,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3135abed62a7c451:0x4379fd45bbd99bb7!2m2!1d105.8544969!2d21.0187271!1m5!1m1!1s0x3135abed62a7c451:0x4379fd45bbd99bb7!2m2!1d105.8544969!2d21.0187271!3e0?hl=vi&entry=ttu"><i
-                                class="fa fa-angle-double-right"></i>số 8D, phố Hàm Long, Hoàn Kiếm, Hà
-                            Nội, Việt Nam</a></li>
-                        <div id="map" style="height:150px;">
-                            <iframe
-                                    src="https://www.google.com/maps/dir/8d+P.H%C3%A0m+Long,+Phan+Chu+Trinh,+Ho%C3%A0n+Ki%E1%BA%BFm,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/8d+P.H%C3%A0m+Long,+Phan+Chu+Trinh,+Ho%C3%A0n+Ki%E1%BA%BFm,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/@21.018737,105.849347,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3135abed62a7c451:0x4379fd45bbd99bb7!2m2!1d105.8544969!2d21.0187271!1m5!1m1!1s0x3135abed62a7c451:0x4379fd45bbd99bb7!2m2!1d105.8544969!2d21.0187271!3e0?hl=vi&entry=ttu"
-                                    width="250" height="100" frameborder="0" style="border:0;"
-                                    allowfullscreen=""></iframe>
-                        </div>
-                    </ul>
-                </div>
+                <p class="small mb-0">Chuỗi cửa hàng cà phê hiện diện tại nhiều thành phố, mang đến trải nghiệm cà phê Việt đậm đà và không gian thư giãn.</p>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-                    <ul class="list-unstyled list-inline social text-center">
-                        <li class="list-inline-item"><a href="https://www.facebook.com/huyenthuwinecellar"><i
-                                class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                        <li class="list-inline-item"><a href="https://www.instagram.com/xbjamesgosling/?hl=vi"><i
-                                class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fas fa-phone-volume"></i></a></li>
-                        <li class="list-inline-item"><a
-                                href="mailto:tdquynh09@gmail.com?cc=name2@rapidtables.com&amp;bcc=name3@rapidtables.com
-                                                        &amp;subject=The%20subject%20of%20the%20email
-                                                        &amp;body=The%20body%20of%20the%20email" target="_blank"><i
-                                class="fa fa-envelope"></i></a></li>
-                    </ul>
-                </div>
-
+            <div class="col-md-4">
+                <h6 class="fw-semibold mb-3">Khám phá</h6>
+                <ul class="list-unstyled">
+                    <li><a th:href="@{/}">Trang chủ</a></li>
+                    <li><a th:href="@{/products}">Thực đơn</a></li>
+                    <li><a th:href="@{/stores}">Hệ thống cửa hàng</a></li>
+                    <li><a th:href="@{/login}">Đăng nhập</a></li>
+                </ul>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                    <p class="h6">© copyright by <a class="text-green" href="#"
-                                                    target="_blank">Quynh Hill</a></p>
-                </div>
-
+            <div class="col-md-4">
+                <h6 class="fw-semibold mb-3">Liên hệ</h6>
+                <ul class="list-unstyled small">
+                    <li><i class="ti ti-phone me-2"></i>0984 368 800</li>
+                    <li><i class="ti ti-mail me-2"></i>tdquynh09@gmail.com</li>
+                    <li><i class="ti ti-map-pin me-2"></i>Hà Nội · Đà Nẵng</li>
+                </ul>
             </div>
         </div>
-    </section>
-
-    <script th:src="@{js/gallery.js}" type="text/javascript"></script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+        <hr class="border-secondary my-4">
+        <p class="text-center small mb-0">&copy; QuynhHill Coffee</p>
+    </div>
 </div>
-
 
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/admin-layout :: layout(${title}, ${activeMenu}, ~{::#content}, ~{})}">
+<body>
+<div id="content" class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-semibold mb-0">Danh sách sản phẩm</h4>
+        <a class="btn btn-coffee" th:href="@{/admin/products/new}"><i class="ti ti-plus me-1"></i>Thêm sản phẩm</a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table text-nowrap align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Mã</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Danh mục con</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${products}">
+                        <td><img th:src="${product.imageUrl}" width="44" height="44" class="rounded" style="object-fit:cover" alt=""/></td>
+                        <td th:text="${product.code}">CF001</td>
+                        <td th:text="${product.name}">Cà phê đen đá</td>
+                        <td th:text="${product.subCategory != null ? product.subCategory.subCategoryName : '—'}">—</td>
+                        <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' đ'">25.000 đ</td>
+                        <td th:text="${product.status != null ? product.status.status : '—'}">Còn hàng</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary" th:href="@{'/admin/products/' + ${product.id} + '/edit'}"><i class="ti ti-edit"></i></a>
+                            <a class="btn btn-sm btn-outline-danger" th:href="@{'/admin/products/' + ${product.id} + '/delete'}"
+                               onclick="return confirm('Xoá sản phẩm này?')"><i class="ti ti-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(products)}">
+                        <td colspan="7" class="text-center text-muted">Chưa có sản phẩm nào</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/admin-layout :: layout(${title}, ${activeMenu}, ~{::#content}, ~{})}">
+<body>
+<div id="content" class="container-fluid">
+    <h4 class="fw-semibold mb-4">Người dùng</h4>
+
+    <form class="row g-2 mb-3" method="get" th:action="@{/admin/users}">
+        <div class="col-auto">
+            <input type="text" class="form-control" name="keyword" placeholder="Tìm theo tên đăng nhập" th:value="${keyword}" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-coffee">Tìm kiếm</button>
+        </div>
+    </form>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table text-nowrap align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th>Tên đăng nhập</th>
+                        <th>Email</th>
+                        <th>Nguồn</th>
+                        <th>Vai trò</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.username}">user1</td>
+                        <td th:text="${user.email}">user1@mail.com</td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${user.provider == 'GOOGLE'} ? 'bg-danger' : (${user.provider == 'FACEBOOK'} ? 'bg-primary' : 'bg-secondary')"
+                                  th:text="${user.provider}">LOCAL</span>
+                        </td>
+                        <td>
+                            <span th:each="role : ${user.roles}" class="badge bg-light-coffee me-1" th:text="${role.name}">ROLE_USER</span>
+                        </td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary" th:href="@{'/admin/users/' + ${user.id} + '/toggle-admin'}">Toggle Admin</a>
+                            <a class="btn btn-sm btn-outline-danger" th:href="@{'/admin/users/' + ${user.id} + '/delete'}"
+                               onclick="return confirm('Xoá người dùng này?')"><i class="ti ti-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr th:if="${users.empty}">
+                        <td colspan="5" class="text-center text-muted">Không tìm thấy người dùng</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <nav th:if="${users.totalPages > 1}" class="mt-3">
+                <ul class="pagination">
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, users.totalPages - 1)}"
+                        th:classappend="${i == users.number} ? 'active'">
+                        <a class="page-link" th:href="@{/admin/users(page=${i}, keyword=${keyword})}" th:text="${i + 1}">1</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

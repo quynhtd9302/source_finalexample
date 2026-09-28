@@ -1,163 +1,81 @@
 <!DOCTYPE html>
-
-<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/main-layout :: main-fragment(
                                                 ~{::title},
-                                                ~{:: #product-static-resources},
-                                                ~{:: #product-nav},
+                                                ~{},
+                                                ~{/fragments/app-fragments :: nav-default},
                                                 ~{:: #product-main-content},
-                                                ~{:: #product-footer}
+                                                ~{/fragments/app-fragments :: copyright}
                                                )}">
-
-  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-
 <head>
-    <title>Title of Home Page</title>
-
-    <th:block id="product-static-resources">
-
-        <script type="text/javascript" src="../static/home.js" th:src="@{/home.js}"></script>
-        <link rel="stylesheet" type="text/css" href="../static/home.css" th:href="@{/home.css}"/>
-
-    </th:block>
-
+    <title>Thực đơn - QuynhHill Coffee</title>
 </head>
 <body>
 
-
-<div id="product-nav" th:replace="~{/fragments/app-fragments :: nav-default}">
-    Home Nav
-</div>
-
-<div id="product-main-content">
-    <div class="container">
+<div id="product-main-content" style="margin-top: 90px;">
+    <div class="container py-4">
         <div class="row">
-            <!-- Show list category -->
-            <div class="col-md-2">
-                <h5 class="labelhead">
-                    <div class="alert alert-success" role="alert">
-                        Category
-                    </div>
-                </h5>
-                <div class="category">
-                    <a href="#" class="pt-3" style="color: #d71e1e; font-size: 20px">All
-                        Product</a>
-
-                    <div th:each="category:${categories}">
-                        <a class="pt-4" th:href="@{'/products?page='+${page}+'&categoryId='+*{category.id}}"
-                           style="color: #8400e7 !important; margin-left: 5px;font-size: 20px"
-                           th:text="*{category.categoryName}">Tools</a>
-
-                        <span th:each="subCategory:*{category.subCategories}" class="d-inline-block" tabindex="0"
-                              data-toggle="tooltip" title="Hand Tools">
-                            <a class="pl-3 subCategory" th:href="@{'/products?page='+${page}+'&subCategoryId='+*{subCategory.id}}">
-                                <li th:text="*{subCategory.subCategoryName}">Hand Tools</li>
-                            </a>
-                        </span>
-
-                    </div>
-
-
-                </div>
-            </div>
-            <!-- end -->
-            <!-- Show list product -->
-
-            <div class="col-md-10">
-                <h5 class="labelhead"></h5>
-                <div class="alert alert-secondary" role="alert">
-                    <form onchange="submitForm()" id="combo" action="#">List of products
-                        <i class="fas fa-cubes mr-2 ml-4"></i><a href="#"
-                                                                 class="btn btn-outline-warning" style="color: #ff0707">
-                            Best Match</a>
-                        <i class="fas fa-filter mr-2 ml-4"></i><a href="#"
-                                                                  class="btn btn-outline-primary">Random</a>
-                        <i class="fas fa-dollar-sign mr-2 ml-4"></i>
-                        <select name="price" style="font-size: 1rem">
-                            <option value="-1">Price</option>
-                            <option value="0">0$-5%</option>
-                            <option value="1">5$-10$</option>
-                            <option value="2">10$-15$</option>
-                            <option value="3">15$-20$</option>
-                            <option value="4">&gt;20$</option>
-                        </select>
-                        <i class="fas fa-sort-down mr-2 ml-4"></i><a href="#"
-                                                                     class="btn btn-outline-info">new</a>
-                        <i class="fas fa-bolt mr-2 ml-4"></i><a href="#"
-                                                                class="btn btn-outline-success">free ship</a>
-                        <a href="#" style="color: orange"><i class="fas fa-sort ml-5"></i></a>
-                    </form>
-                </div>
-
-
-                <nav th:if="${totalPage}>1" aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end">
-                        <li th:each="index: ${#numbers.sequence(1, totalPage)}" class="page-item"
-                            th:classappend="(${page}==*{index})?'active':''">
-                            <a th:href="@{'/products?page='+*{index}}" th:text="*{index}" class="page-link" href="#"></a>
-                        </li>
-                    </ul>
-                </nav>
-
-
-                <div class="row mb-5">
-
-
-                    <!-- Show product -->
-
-                    <div th:each="product:${products}" class="col-md-3 mt-4 pt-2">
-                        <div class="card">
-
-
-                            <div id="DIV_1">
-                                <span id="SPAN_2"><i class="fas fa-bolt"></i></span>
-                            </div>
-
-                            <a th:href="@{'/detail?productId='+*{product.id}}"><img th:src="@{'/images/'+*{product.imageUrl}}"
-                                                         style="border: 1px solid #ededed;"
-                                                         class="card-img-top pt-4" alt="..."></a>
-                            <div class="card-body pt-3">
-                                <a th:href="@{'/add-to-cart?productId='+*{product.id}}" class="btn btn-outline-danger"><i class="fas fa-cart-plus mr-2"></i>Add to
-                                    cart</a>
-                                <a th:href="@{/detail}" class="card-title text-center mb-1 mt-2"
-                                   th:text="*{product.name}">Repair Tool</a>
-                                <p class="text-center my-0" style="color: #f60" th:text="'$'+*{product.price}">
-                                    $16.61</p>
-                                <!--                                        <p class="text-center my-0">
-                                                                                        <fmt:formatNumber value="16.61" type="currency"></fmt:formatNumber>
-                                                                                    </p>-->
+            <div class="col-md-3 mb-4">
+                <div class="card category-panel">
+                    <div class="card-header bg-coffee text-white btn-coffee">Danh mục</div>
+                    <div class="card-body">
+                        <a th:href="@{/products}" class="fw-semibold d-block mb-2">Tất cả sản phẩm</a>
+                        <div th:each="category: ${categories}" class="mb-2">
+                            <a th:href="@{'/products?page=1&categoryId=' + ${category.id}}" class="fw-semibold" th:text="${category.categoryName}">Cà phê</a>
+                            <div th:each="subCategory: ${category.subCategories}">
+                                <a class="subcategory-link" th:href="@{'/products?page=1&subCategoryId=' + ${subCategory.id}}" th:text="${subCategory.subCategoryName}">Cà phê phin</a>
                             </div>
                         </div>
                     </div>
-
-                    <!-- end -->
-
-
                 </div>
+            </div>
 
+            <div class="col-md-9">
+                <h4 class="fw-semibold mb-4">Thực đơn</h4>
 
-                <nav th:if="${totalPage}>1" aria-label="Page navigation example">
+                <nav th:if="${totalPage}>1" aria-label="Page navigation">
                     <ul class="pagination justify-content-end">
                         <li th:each="index: ${#numbers.sequence(1, totalPage)}" class="page-item"
-                            th:classappend="(${page}==*{index})?'active':''">
-                            <a th:href="@{'/products?page='+*{index}}" th:text="*{index}" class="page-link" href="#"></a>
+                            th:classappend="(${page}==${index})?'active':''">
+                            <a th:href="@{'/products?page='+${index}}" th:text="${index}" class="page-link"></a>
                         </li>
                     </ul>
                 </nav>
 
+                <div class="row g-3">
+                    <div th:each="product: ${products}" class="col-6 col-md-4">
+                        <div class="card product-card">
+                            <a th:href="@{'/detail?productId='+${product.id}}">
+                                <img th:src="${product.imageUrl}" class="card-img-top" alt=""/>
+                            </a>
+                            <div class="card-body">
+                                <a th:href="@{'/detail?productId='+${product.id}}" class="text-decoration-none">
+                                    <h6 class="mb-1 text-dark" th:text="${product.name}">Cà phê đen đá</h6>
+                                </a>
+                                <p class="product-price mb-2" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' đ'">25.000 đ</p>
+                                <a th:href="@{'/add-to-cart?productId='+${product.id}}" class="btn btn-coffee btn-sm w-100">
+                                    <i class="ti ti-shopping-cart-plus me-1"></i>Thêm vào giỏ
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${#lists.isEmpty(products)}" class="text-center text-muted py-5">
+                        Không có sản phẩm nào
+                    </div>
+                </div>
 
+                <nav th:if="${totalPage}>1" class="mt-4">
+                    <ul class="pagination justify-content-end">
+                        <li th:each="index: ${#numbers.sequence(1, totalPage)}" class="page-item"
+                            th:classappend="(${page}==${index})?'active':''">
+                            <a th:href="@{'/products?page='+${index}}" th:text="${index}" class="page-link"></a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            <!--end -->
         </div>
     </div>
 </div>
-
-
-<div id="product-footer" th:replace="~{/fragments/app-fragments :: copyright}">
-    Footer
-</div>
-
 
 </body>
 </html>

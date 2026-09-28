@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: finalexample
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+
+server:
+  port: 8899
+
+messages:
+  basename: messages
+  encoding: UTF-8
+
+uploadDir: /resources
+
+# Đăng nhập Google/Facebook: để trống thì các nút đăng nhập mạng xã hội tự ẩn
+# đi và ứng dụng chạy bình thường. Điền qua biến môi trường (khuyến nghị) hoặc
+# đè trực tiếp ở đây khi đã tạo app trên Google Cloud Console / Meta for
+# Developers — xem README.md để biết chi tiết từng bước.
+oauth2:
+  google:
+    client-id: ${GOOGLE_CLIENT_ID:}
+    client-secret: ${GOOGLE_CLIENT_SECRET:}
+  facebook:
+    client-id: ${FACEBOOK_CLIENT_ID:}
+    client-secret: ${FACEBOOK_CLIENT_SECRET:}

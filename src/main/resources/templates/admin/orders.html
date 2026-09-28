@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/admin-layout :: layout(${title}, ${activeMenu}, ~{::#content}, ~{})}">
+<body>
+<div id="content" class="container-fluid">
+    <h4 class="fw-semibold mb-4">Danh sách đơn hàng</h4>
+
+    <form class="row g-2 mb-3" method="get" th:action="@{/admin/orders}">
+        <div class="col-auto">
+            <select class="form-select" name="storeId" onchange="this.form.submit()">
+                <option value="">-- Tất cả cửa hàng --</option>
+                <option th:each="store : ${stores}" th:value="${store.id}" th:text="${store.name}"
+                        th:selected="${selectedStoreId != null and selectedStoreId == store.id}"></option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <select class="form-select" name="statusId" onchange="this.form.submit()">
+                <option value="">-- Tất cả trạng thái --</option>
+                <option th:each="status : ${statuses}" th:value="${status.id}" th:text="${status.status}"
+                        th:selected="${selectedStatusId != null and selectedStatusId == status.id}"></option>
+            </select>
+        </div>
+    </form>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table text-nowrap align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày đặt</th>
+                        <th>Cửa hàng</th>
+                        <th>Khách hàng</th>
+                        <th>Trạng thái</th>
+                        <th>Thanh toán</th>
+                        <th>Tổng tiền</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order : ${orders}">
+                        <td th:text="'#' + ${order.id}">#1</td>
+                        <td th:text="${order.createdDate}">2026-01-01</td>
+                        <td th:text="${order.store != null ? order.store.name : '—'}">—</td>
+                        <td th:text="${order.shipping != null ? order.shipping.name : '—'}">—</td>
+                        <td th:text="${order.status != null ? order.status.status : '—'}">—</td>
+                        <td th:text="${order.paymentMethod == 'BANK_TRANSFER'} ? 'Chuyển khoản' : 'COD'">COD</td>
+                        <td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary" th:href="@{'/admin/orders/' + ${order.id}}"><i class="ti ti-eye"></i> Xem</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(orders)}">
+                        <td colspan="8" class="text-center text-muted">Không có đơn hàng nào</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

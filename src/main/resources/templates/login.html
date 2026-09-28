@@ -1,94 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-      <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-    
-
-    <title>Log in with your account</title>
-
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/common.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-        <style>
-     .btn-color{
-  background-color: #0e1c36;
-  color: #fff;
-  
-}
-
-.profile-image-pic{
-  height: 200px;
-  width: 200px;
-  object-fit: cover;
-}
-
-
-
-.cardbody-color{
-  background-color: #ebf2fa;
-}
-.card my-5{
-  background-color: #ebf2fa;
-}
-a{
-  text-decoration: none;
-}
-    </style>
+    <title>Đăng nhập - QuynhHill Coffee</title>
+    <link rel="shortcut icon" type="image/svg+xml" th:href="@{/images/coffee/favicon.svg}" />
+    <link rel="stylesheet" th:href="@{/assets/libs/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/icons/tabler-icons/tabler-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/coffee-theme.css}">
 </head>
 
-<body style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-<div class="container" >
-
-=        <h2 class="text-center text-dark mt-5">ĐĂNG NHẬP HỆ THỐNG</h2>
-        <div class="text-center mb-5 text-dark">Quản Lý Quà Tặng</div>
-        <div class="card my-5">
-
-    	<form method="POST" action="/login" class="form-signin">
-
-            <div class="text-center">
-               <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" 
-              class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                width="200px" alt="profile">
-            </div>
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-			<span th:text="${message}"></span>
-            <div class="mb-3">
-              <input type="text" name="username" class="form-control" id="Username" aria-describedby="emailHelp"
-              autofocus="true"
-                placeholder="Tên đăng nhập">
-            </div>
-            <div class="mb-3">
-              <input type="password" name="password" class="form-control" id="password" placeholder="Mật khẩu">
-            </div>
-            <span th:text="${error}"></span>
-            
-            <div class="text-center"><button type="submit" class="btn btn-lg btn-primary btn-block">Đăng nhập</button></div>
-            <h1> 
-            </h1>
-            <div id="emailHelp" class="form-text text-center mb-5 text-dark">Bạn chưa có tài khoản? <a href="/registration" class="text-dark fw-bold"> Tạo tài khoản</a>
-            </div>
-            </div>
-          </form>
+<body>
+<div class="container">
+    <div class="auth-card">
+        <div class="text-center mb-3">
+            <img th:src="@{/images/coffee/logo.svg}" width="64" height="64" alt="QuynhHill Coffee"/>
+            <h4 class="fw-semibold mt-2">QuynhHill Coffee</h4>
+            <p class="text-muted">Đăng nhập để đặt hàng và theo dõi đơn hàng của bạn</p>
         </div>
+        <div class="card">
+            <div class="card-body p-4">
+                <p class="text-success text-center" th:if="${message}" th:text="${message}"></p>
+                <p class="text-danger text-center" th:if="${error}" th:text="${error}"></p>
+                <form method="post" th:action="@{/login}">
+                    <div class="mb-3">
+                        <label class="form-label">Tên đăng nhập</label>
+                        <input type="text" name="username" class="form-control" autofocus="true" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu</label>
+                        <input type="password" name="password" class="form-control" required/>
+                    </div>
+                    <button type="submit" class="btn btn-coffee w-100">Đăng nhập</button>
+                </form>
 
+                <div th:if="${googleEnabled or facebookEnabled}">
+                    <div class="text-center text-muted my-3">hoặc</div>
+                    <a th:if="${googleEnabled}" th:href="@{/oauth2/authorization/google}"
+                       class="btn btn-outline-coffee w-100 mb-2">
+                        <i class="ti ti-brand-google me-1"></i>Đăng nhập bằng Google
+                    </a>
+                    <a th:if="${facebookEnabled}" th:href="@{/oauth2/authorization/facebook}"
+                       class="btn btn-outline-coffee w-100">
+                        <i class="ti ti-brand-facebook me-1"></i>Đăng nhập bằng Facebook
+                    </a>
+                </div>
+
+                <p class="text-center mt-3 mb-0">Chưa có tài khoản? <a th:href="@{/registration}">Tạo tài khoản</a></p>
+            </div>
+        </div>
     </div>
-
-    </form>
-
 </div>
-<!-- /container -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script> -->
 </body>
 </html>

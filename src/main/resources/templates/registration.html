@@ -1,140 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Create an account</title>
-
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/common.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script th:src="@{https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js}"></script>
-    <script th:src="@{https://oss.maxcdn.com/respond/1.4.2/respond.min.js}"></script>
-    <![endif]-->
-    
-            <style>
-     .btn-color{
-  background-color: #0e1c36;
-  color: #fff;
-  
-}
-
-.profile-image-pic{
-  height: 200px;
-  width: 200px;
-  object-fit: cover;
-}
-
-.cardbody-color{
-  background-color: #ebf2fa;
-}
-
-a{
-  text-decoration: none;
-}
-    </style>
+    <title>Đăng ký - QuynhHill Coffee</title>
+    <link rel="shortcut icon" type="image/svg+xml" th:href="@{/images/coffee/favicon.svg}" />
+    <link rel="stylesheet" th:href="@{/assets/libs/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/icons/tabler-icons/tabler-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/coffee-theme.css}">
 </head>
 
 <body>
-    <body style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-
-=        <h2 class="text-center text-dark mt-5">ĐĂNG KÝ TÀI KHOẢN</h2>
-        <div class="text-center mb-5 text-dark">Quản Lý Quà Tặng</div>
-        <div class="card my-5">
-
-		<form  method="POST" th:object="${userForm}" class="form-signin">
-
-            <div class="text-center">
-               <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" 
-              class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                width="200px" alt="profile">
-            </div>
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-			<span th:text="${message}"></span>
-            <div class="mb-3">
-              <input type="text" name="username" class="form-control" id="Username"
-              autofocus="true"
-                placeholder="Tên đăng nhập">
-              <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-                
-            </div>
-            
-            <div class="mb-3">
-              <input type="text" name="email" class="form-control" id="Email" aria-describedby="emailHelp"
-              autofocus="true"
-                placeholder="Email">
-              <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-                
-            </div>
-            
-            <div class="mb-3">
-              <input type="password" name="password" class="form-control" id="password" placeholder="Mật khẩu">
-              <span th:if="${#fields.hasErrors('password')}" th:errors="*{passwordConfirm}"></span>
-              
-            </div>
-            <span th:text="${error}"></span>
-            
-            <div class="mb-3">
-              <input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm" placeholder="Nhập lại mật khẩu">
-              <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
-              
-            </div>
-            <span th:text="${error}"></span>
-            
-            <div class="text-center"><button type="submit" class="btn btn-lg btn-primary btn-block">Đăng ký</button></div>
-            <h1> 
-            </h1>
-            <div id="emailHelp" class="form-text text-center mb-5 text-dark">Bạn đã có tài khoản? <a href="/login" class="text-dark fw-bold">Đăng nhập</a>
-            </div>
-            </div>
-          </form>
-        </div>
-
-    </div>
-
-
-
-
-<!-- /container -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script> -->
-<!-- </body> -->
-<!-- 
 <div class="container">
-
-<form  method="POST" th:object="${userForm}" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
-<div class="form-group">
-            <input type="text" th:field="*{username}" class="form-control" placeholder="Username" autofocus="true">
-            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+    <div class="auth-card">
+        <div class="text-center mb-3">
+            <img th:src="@{/images/coffee/logo.svg}" width="64" height="64" alt="QuynhHill Coffee"/>
+            <h4 class="fw-semibold mt-2">Tạo tài khoản</h4>
+            <p class="text-muted">Đăng ký để đặt hàng nhanh hơn tại QuynhHill Coffee</p>
         </div>
-<div class="form-group">
-            <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
-            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        <div class="card">
+            <div class="card-body p-4">
+                <form method="post" th:action="@{/registration}" th:object="${userForm}">
+                    <div class="mb-3">
+                        <label class="form-label">Tên đăng nhập</label>
+                        <input type="text" th:field="*{username}" class="form-control" autofocus="true" required/>
+                        <div class="text-danger small" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" th:field="*{email}" class="form-control" required/>
+                        <div class="text-danger small" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu</label>
+                        <input type="password" th:field="*{password}" class="form-control" required/>
+                        <div class="text-danger small" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nhập lại mật khẩu</label>
+                        <input type="password" th:field="*{passwordConfirm}" class="form-control" required/>
+                        <div class="text-danger small" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></div>
+                    </div>
+                    <button type="submit" class="btn btn-coffee w-100">Đăng ký</button>
+                </form>
+                <p class="text-center mt-3 mb-0">Đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a></p>
+            </div>
         </div>
-
-<div class="form-group">
-            <input type="password" th:field="*{passwordConfirm}" class="form-control"
-                   placeholder="Confirm your password">
-            <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
-        </div>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-    </form>
-
+    </div>
 </div>
-/container
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
- -->
 </body>
-
 </html>

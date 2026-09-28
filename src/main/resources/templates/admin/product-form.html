@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/admin-layout :: layout(${title}, ${activeMenu}, ~{::#content}, ~{})}">
+<body>
+<div id="content" class="container-fluid">
+    <h4 class="fw-semibold mb-4" th:text="${title}">Thêm sản phẩm</h4>
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/admin/products/save}" th:object="${product}" method="post" class="row g-3">
+                <input type="hidden" th:field="*{id}" />
+                <div class="col-md-3">
+                    <label class="form-label">Mã sản phẩm</label>
+                    <input type="text" class="form-control" th:field="*{code}" required />
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label">Tên sản phẩm</label>
+                    <input type="text" class="form-control" th:field="*{name}" required />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Danh mục con</label>
+                    <select class="form-select" name="subCategoryId" required>
+                        <option value="">-- Chọn danh mục con --</option>
+                        <option th:each="sub : ${subCategories}" th:value="${sub.id}"
+                                th:text="${sub.category.categoryName} + ' / ' + ${sub.subCategoryName}"
+                                th:selected="${product.subCategory != null and product.subCategory.id == sub.id}">
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Giá bán (đ)</label>
+                    <input type="number" step="1000" min="0" class="form-control" th:field="*{price}" required />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Số lượng tồn</label>
+                    <input type="number" min="0" class="form-control" th:field="*{quantity}" required />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Ảnh minh hoạ (đường dẫn)</label>
+                    <input type="text" class="form-control" th:field="*{imageUrl}" list="coffee-images" placeholder="/images/coffee/coffee-cup.svg" />
+                    <datalist id="coffee-images">
+                        <option value="/images/coffee/coffee-cup.svg"></option>
+                        <option value="/images/coffee/espresso.svg"></option>
+                        <option value="/images/coffee/tea.svg"></option>
+                        <option value="/images/coffee/freeze.svg"></option>
+                        <option value="/images/coffee/pastry.svg"></option>
+                    </datalist>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Mô tả</label>
+                    <textarea class="form-control" rows="3" th:field="*{description}"></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-coffee">Lưu</button>
+                    <a th:href="@{/admin/products}" class="btn btn-outline-secondary">Huỷ</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

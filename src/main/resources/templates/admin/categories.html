@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/admin-layout :: layout(${title}, ${activeMenu}, ~{::#content}, ~{})}">
+<body>
+<div id="content" class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-semibold mb-0">Danh mục sản phẩm</h4>
+        <a class="btn btn-coffee" th:href="@{/admin/categories/new}">
+            <i class="ti ti-plus me-1"></i>Thêm danh mục
+        </a>
+    </div>
+
+    <div class="card mb-3" th:each="category : ${categories}">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-semibold mb-0" th:text="${category.categoryName}">Cà phê</h5>
+                <div>
+                    <a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/categories/subcategories/new(categoryId=${category.id})}">
+                        <i class="ti ti-plus"></i> Danh mục con
+                    </a>
+                    <a class="btn btn-sm btn-outline-danger" th:href="@{'/admin/categories/' + ${category.id} + '/delete'}"
+                       onclick="return confirm('Xoá danh mục này và toàn bộ danh mục con/sản phẩm bên trong?')">
+                        <i class="ti ti-trash"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="badge bg-light-coffee" th:each="sub : ${category.subCategories}">
+                    <span th:text="${sub.subCategoryName}">Cà phê phin</span>
+                    <a th:href="@{'/admin/categories/subcategories/' + ${sub.id} + '/delete'}" class="text-danger ms-1"
+                       onclick="return confirm('Xoá danh mục con này?')"><i class="ti ti-x"></i></a>
+                </span>
+                <span th:if="${#lists.isEmpty(category.subCategories)}" class="text-muted">Chưa có danh mục con</span>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(categories)}" class="text-center text-muted py-5">Chưa có danh mục nào</div>
+</div>
+</body>
+</html>

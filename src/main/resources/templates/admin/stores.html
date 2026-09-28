@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/admin-layout :: layout(${title}, ${activeMenu}, ~{::#content}, ~{})}">
+<body>
+<div id="content" class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-semibold mb-0">Danh sách cửa hàng</h4>
+        <a class="btn btn-coffee" th:href="@{/admin/stores/new}"><i class="ti ti-plus me-1"></i>Thêm cửa hàng</a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table text-nowrap align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Tên cửa hàng</th>
+                        <th>Địa chỉ</th>
+                        <th>SĐT</th>
+                        <th>Giờ mở cửa</th>
+                        <th>Trạng thái</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="store : ${stores}">
+                        <td th:text="${store.code}">HN01</td>
+                        <td th:text="${store.name}">QuynhHill Coffee</td>
+                        <td th:text="${store.address}">Địa chỉ</td>
+                        <td th:text="${store.phone}">SĐT</td>
+                        <td th:text="${store.openTime} + ' - ' + ${store.closeTime}">07:00 - 22:00</td>
+                        <td>
+                            <span class="badge" th:classappend="${store.active} ? 'bg-success' : 'bg-secondary'"
+                                  th:text="${store.active} ? 'Đang hoạt động' : 'Ngừng hoạt động'">Đang hoạt động</span>
+                        </td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary" th:href="@{'/admin/stores/' + ${store.id} + '/edit'}"><i class="ti ti-edit"></i></a>
+                            <a class="btn btn-sm btn-outline-warning" th:href="@{'/admin/stores/' + ${store.id} + '/toggle'}"><i class="ti ti-power"></i></a>
+                            <a class="btn btn-sm btn-outline-danger" th:href="@{'/admin/stores/' + ${store.id} + '/delete'}"
+                               onclick="return confirm('Xoá/ngừng hoạt động cửa hàng này?')"><i class="ti ti-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(stores)}">
+                        <td colspan="7" class="text-center text-muted">Chưa có cửa hàng nào</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

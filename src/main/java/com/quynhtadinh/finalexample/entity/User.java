@@ -20,6 +20,7 @@ public class User {
 	private String email;
 	private String password;
 	private String passwordConfirm;
+	private String provider = "LOCAL";
 
 
 	private Set<Role> roles;
@@ -67,7 +68,13 @@ public class User {
 		this.passwordConfirm = passwordConfirm;
 	}
 
-	
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
 
 	@ManyToMany
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

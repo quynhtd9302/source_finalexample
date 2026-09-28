@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" fill="#EFE0CE"/>
+  <rect x="40" y="90" width="240" height="90" fill="#6F4E37"/>
+  <polygon points="30,90 160,45 290,90" fill="#3B2A1C"/>
+  <rect x="140" y="120" width="40" height="60" fill="#3B2A1C"/>
+  <rect x="60" y="110" width="40" height="40" fill="#FDF3E3"/>
+  <rect x="220" y="110" width="40" height="40" fill="#FDF3E3"/>
+  <text x="160" y="72" font-family="Georgia, serif" font-size="14" fill="#FDF3E3" text-anchor="middle">QuynhHill</text>
+</svg>

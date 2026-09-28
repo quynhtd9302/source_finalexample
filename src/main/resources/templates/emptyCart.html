@@ -1,40 +1,25 @@
 <!DOCTYPE html>
-
-<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/main-layout :: main-fragment(
                                                 ~{::title},
-                                                ~{:: #empty-static-resources},
-                                                ~{:: #empty-nav},
-                                                ~{:: #empty-main-content},
-                                                ~{:: #empty-footer}
+                                                ~{},
+                                                ~{/fragments/app-fragments :: nav-default},
+                                                ~{:: #empty-cart-main-content},
+                                                ~{/fragments/app-fragments :: copyright}
                                                )}">
-  <link rel="shortcut icon" type="image/png" href="/images/logos/favicon.png" />
-
 <head>
-    <title>Empty Cart</title>
-
+    <title>Giỏ hàng trống - QuynhHill Coffee</title>
 </head>
 <body>
 
-
-<!--<div id="empty-nav" th:replace="~{/fragments/app-fragments :: nav-default}">-->
-<!--    Home Nav-->
-<!--</div>-->
-
-<div id="empty-main-content">
-    <div class="alert alert-danger text-center" role="alert">
-        List Cart is Empty
+<div id="empty-cart-main-content" style="margin-top: 90px;">
+    <div class="container py-5 text-center">
+        <i class="ti ti-shopping-cart-off" style="font-size: 64px; color: var(--coffee-light);"></i>
+        <h4 class="fw-semibold mt-3">Giỏ hàng của bạn đang trống</h4>
+        <p class="text-muted">Hãy chọn vài món yêu thích từ thực đơn của chúng tôi nhé!</p>
+        <a th:href="@{/products}" class="btn btn-coffee mt-2">Xem thực đơn</a>
     </div>
-    <div class="text-center"><a class="btn btn-outline-success" th:href="@{/home}">Shopping now</a></div>
 </div>
-
-
-
-<!--<div id="empty-footer" th:replace="~{/fragments/app-fragments :: copyright}">-->
-<!--    Footer-->
-<!--</div>-->
-
 
 </body>
 </html>

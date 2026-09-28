@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/admin-layout :: layout(${title}, ${activeMenu}, ~{::#content}, ~{})}">
+<body>
+<div id="content" class="container-fluid">
+    <h4 class="fw-semibold mb-4" th:text="${title}">Thêm cửa hàng</h4>
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/admin/stores/save}" th:object="${store}" method="post" class="row g-3">
+                <input type="hidden" th:field="*{id}" />
+                <div class="col-md-4">
+                    <label class="form-label">Mã cửa hàng</label>
+                    <input type="text" class="form-control" th:field="*{code}" required />
+                </div>
+                <div class="col-md-8">
+                    <label class="form-label">Tên cửa hàng</label>
+                    <input type="text" class="form-control" th:field="*{name}" required />
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Địa chỉ</label>
+                    <input type="text" class="form-control" th:field="*{address}" required />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Số điện thoại</label>
+                    <input type="text" class="form-control" th:field="*{phone}" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" th:field="*{email}" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Giờ mở cửa</label>
+                    <input type="time" class="form-control" th:field="*{openTime}" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Giờ đóng cửa</label>
+                    <input type="time" class="form-control" th:field="*{closeTime}" />
+                </div>
+                <div class="col-md-8">
+                    <label class="form-label">Ảnh minh hoạ (đường dẫn)</label>
+                    <input type="text" class="form-control" th:field="*{imageUrl}" placeholder="/images/coffee/store-1.svg" />
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="active" th:field="*{active}" />
+                        <label class="form-check-label" for="active">Đang hoạt động</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-coffee">Lưu</button>
+                    <a th:href="@{/admin/stores}" class="btn btn-outline-secondary">Huỷ</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

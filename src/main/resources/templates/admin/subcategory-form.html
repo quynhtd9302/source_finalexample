@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/admin-layout :: layout(${title}, ${activeMenu}, ~{::#content}, ~{})}">
+<body>
+<div id="content" class="container-fluid">
+    <h4 class="fw-semibold mb-1" th:text="${title}">Thêm danh mục con</h4>
+    <p class="text-muted mb-4">Thuộc danh mục: <strong th:text="${category.categoryName}">Cà phê</strong></p>
+    <div class="card" style="max-width: 480px;">
+        <div class="card-body">
+            <form th:action="@{/admin/categories/subcategories/save}" method="post">
+                <input type="hidden" name="categoryId" th:value="${category.id}" />
+                <div class="mb-3">
+                    <label class="form-label">Tên danh mục con</label>
+                    <input type="text" name="subCategoryName" class="form-control" required autofocus="autofocus" />
+                </div>
+                <button type="submit" class="btn btn-coffee">Lưu</button>
+                <a th:href="@{/admin/categories}" class="btn btn-outline-secondary">Huỷ</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

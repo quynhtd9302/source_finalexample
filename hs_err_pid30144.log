@@ -1,0 +1,243 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 536870912 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3710), pid=30144, tid=40348
+#
+# JRE version:  (17.0.15+6) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.15+6-LTS, mixed mode, emulated-client, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Duser.timezone=Asia/Ho_Chi_Minh -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:65363,suspend=y,server=n -javaagent:C:\Users\tdquy\AppData\Local\JetBrains\IntelliJIdea2025.3\captureAgent\debugger-agent.jar=file:///C:/Users/tdquy/AppData/Local/Temp/capture16584752884257174991.props -agentpath:C:\Users\tdquy\AppData\Local\Temp\idea_libasyncProfiler_dll_temp_folder\libasyncProfiler.dll=version,jfr,event=wall,interval=10ms,cstack=no,file=C:\Users\tdquy\IdeaSnapshots\FinalexampleApplication_2026_09_28_123329.jfr,dbghelppath=C:\Users\tdquy\AppData\Local\Temp\idea_dbghelp_dll_temp_folder\dbghelp.dll,log=C:\Users\tdquy\AppData\Local\Temp\FinalexampleApplication_2026_09_28_123329.jfr.log.txt,logLevel=DEBUG -XX:TieredStopAtLevel=1 -Dspring.output.ansi.enabled=always -Dcom.sun.management.jmxremote -Dspring.jmx.enabled=true -Dspring.liveBeansView.mbeanDomain -Dspring.application.admin.enabled=true -Dmanagement.endpoints.jmx.exposure.include=* -Dkotlinx.coroutines.debug.enable.creation.stack.trace=false -Ddebugger.agent.enable.coroutines=true -Dkotlinx.coroutines.debug.enable.flows.stack.trace=true -Dkotlinx.coroutines.debug.enable.mutable.state.flows.stack.trace=true -Ddebugger.async.stack.trace.for.all.threads=true -Dfile.encoding=UTF-8 com.quynhtadinh.finalexample.FinalexampleApplication
+
+Host: 12th Gen Intel(R) Core(TM) i5-12400, 12 cores, 31G,  Windows 10 , 64 bit Build 19041 (10.0.19041.5915)
+Time: Mon Sep 28 12:33:31 2026 SE Asia Standard Time elapsed time: 0.168480 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001ce3049e280):  JavaThread "Unknown thread" [_thread_in_vm, id=40348, stack(0x00000029e6400000,0x00000029e6500000)]
+
+Stack: [0x00000029e6400000,0x00000029e6500000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6887a9]
+V  [jvm.dll+0x83f5a8]
+V  [jvm.dll+0x841053]
+V  [jvm.dll+0x8416c3]
+V  [jvm.dll+0x2496ef]
+V  [jvm.dll+0x6856e9]
+V  [jvm.dll+0x679b7a]
+V  [jvm.dll+0x30b0d7]
+V  [jvm.dll+0x312646]
+V  [jvm.dll+0x36300e]
+V  [jvm.dll+0x36324d]
+V  [jvm.dll+0x2e236c]
+V  [jvm.dll+0x2e3284]
+V  [jvm.dll+0x8114db]
+V  [jvm.dll+0x370d21]
+V  [jvm.dll+0x7f011f]
+V  [jvm.dll+0x3f781e]
+V  [jvm.dll+0x3f9351]
+C  [jli.dll+0x52a0]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17374]
+C  [ntdll.dll+0x4cc91]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007fffcbc4efd8, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000001ce3a639a00 GCTaskThread "GC Thread#0" [stack: 0x00000029e6500000,0x00000029e6600000] [id=11472]
+  0x000001ce3a64c6b0 ConcurrentGCThread "G1 Main Marker" [stack: 0x00000029e6600000,0x00000029e6700000] [id=20160]
+  0x000001ce3a64cfe0 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000000000000000,0x0000000000000000] [id=38352]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fffcb402ec7]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000001ce3a582690] Heap_lock - owner thread: 0x000001ce3049e280
+
+Heap address: 0x0000000603800000, size: 8136 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000603800000, 0x0000000800000000)
+  region size 4096K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fffcb7f2339]
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (2 events):
+Event: 0.145 Loaded shared library C:\Users\tdquy\.jdks\ms-17.0.15\bin\java.dll
+Event: 0.157 Loaded shared library C:\Users\tdquy\.jdks\ms-17.0.15\bin\zip.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff76e4b0000 - 0x00007ff76e4be000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\java.exe
+0x00007ff846e70000 - 0x00007ff847068000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ff846520000 - 0x00007ff8465e2000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ff8447c0000 - 0x00007ff844ab6000 	C:\Windows\System32\KERNELBASE.dll
+0x00007ff844d90000 - 0x00007ff844e90000 	C:\Windows\System32\ucrtbase.dll
+0x00007ff8239e0000 - 0x00007ff8239f7000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\jli.dll
+0x00007ff845300000 - 0x00007ff8454a1000 	C:\Windows\System32\USER32.dll
+0x00007ff8319e0000 - 0x00007ff831c7b000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.6456_none_60b8a6cb71f64256\COMCTL32.dll
+0x00007ff8461b0000 - 0x00007ff84624e000 	C:\Windows\System32\msvcrt.dll
+0x00007ff844620000 - 0x00007ff844642000 	C:\Windows\System32\win32u.dll
+0x00007ff846250000 - 0x00007ff84627b000 	C:\Windows\System32\GDI32.dll
+0x00007ff844ac0000 - 0x00007ff844bd9000 	C:\Windows\System32\gdi32full.dll
+0x00007ff8239c0000 - 0x00007ff8239dd000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\VCRUNTIME140.dll
+0x00007ff844500000 - 0x00007ff84459d000 	C:\Windows\System32\msvcp_win.dll
+0x00007ff846050000 - 0x00007ff84607f000 	C:\Windows\System32\IMM32.DLL
+0x000001ce30590000 - 0x000001ce305a6000 	C:\Windows\System32\umppc21309.dll
+0x00007ff838be0000 - 0x00007ff838bec000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\vcruntime140_1.dll
+0x00007ff80a860000 - 0x00007ff80a8ed000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\msvcp140.dll
+0x00007fffcb110000 - 0x00007fffcbd82000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\server\jvm.dll
+0x00007ff845f10000 - 0x00007ff845fc1000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ff8454b0000 - 0x00007ff84554f000 	C:\Windows\System32\sechost.dll
+0x00007ff8450b0000 - 0x00007ff8451d0000 	C:\Windows\System32\RPCRT4.dll
+0x00007ff844790000 - 0x00007ff8447b7000 	C:\Windows\System32\bcrypt.dll
+0x00007ff846130000 - 0x00007ff84619b000 	C:\Windows\System32\WS2_32.dll
+0x00007ff843a50000 - 0x00007ff843a9b000 	C:\Windows\SYSTEM32\POWRPROF.dll
+0x00007ff839cf0000 - 0x00007ff839d17000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ff833fb0000 - 0x00007ff833fba000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ff8438c0000 - 0x00007ff8438d2000 	C:\Windows\SYSTEM32\UMPDC.dll
+0x00007ff8422d0000 - 0x00007ff8422e2000 	C:\Windows\SYSTEM32\kernel.appcore.dll
+0x00007ff836980000 - 0x00007ff83698a000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\jimage.dll
+0x00007ff83eff0000 - 0x00007ff83f1f1000 	C:\Windows\SYSTEM32\DBGHELP.DLL
+0x00007ff83ef70000 - 0x00007ff83efa4000 	C:\Windows\SYSTEM32\dbgcore.DLL
+0x00007ff844700000 - 0x00007ff844782000 	C:\Windows\System32\bcryptPrimitives.dll
+0x00007ff81b970000 - 0x00007ff81b9ab000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\jdwp.dll
+0x00007ff82c980000 - 0x00007ff82c98e000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\instrument.dll
+0x00007ff8205a0000 - 0x00007ff8205c5000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\java.dll
+0x00007ffff6a90000 - 0x00007ffff6cc9000 	C:\Users\tdquy\AppData\Local\Temp\idea_libasyncProfiler_dll_temp_folder\libasyncProfiler.dll
+0x00007ff8222f0000 - 0x00007ff822308000 	C:\Users\tdquy\.jdks\ms-17.0.15\bin\zip.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\tdquy\.jdks\ms-17.0.15\bin;C:\Windows\SYSTEM32;C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.6456_none_60b8a6cb71f64256;C:\Users\tdquy\.jdks\ms-17.0.15\bin\server;C:\Users\tdquy\AppData\Local\Temp\idea_libasyncProfiler_dll_temp_folder
+
+VM Arguments:
+jvm_args: -Duser.timezone=Asia/Ho_Chi_Minh -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:65363,suspend=y,server=n -javaagent:C:\Users\tdquy\AppData\Local\JetBrains\IntelliJIdea2025.3\captureAgent\debugger-agent.jar=file:///C:/Users/tdquy/AppData/Local/Temp/capture16584752884257174991.props -agentpath:C:\Users\tdquy\AppData\Local\Temp\idea_libasyncProfiler_dll_temp_folder\libasyncProfiler.dll=version,jfr,event=wall,interval=10ms,cstack=no,file=C:\Users\tdquy\IdeaSnapshots\FinalexampleApplication_2026_09_28_123329.jfr,dbghelppath=C:\Users\tdquy\AppData\Local\Temp\idea_dbghelp_dll_temp_folder\dbghelp.dll,log=C:\Users\tdquy\AppData\Local\Temp\FinalexampleApplication_2026_09_28_123329.jfr.log.txt,logLevel=DEBUG -XX:TieredStopAtLevel=1 -Dspring.output.ansi.enabled=always -Dcom.sun.management.jmxremote -Dspring.jmx.enabled=true -Dspring.liveBeansView.mbeanDomain -Dspring.application.admin.enabled=true -Dmanagement.endpoints.jmx.exposure.include=* -Dkotlinx.coroutines.debug.enable.creation.stack.trace=false -Ddebugger.agent.enable.coroutines=true -Dkotlinx.coroutines.debug.enable.flows.stack.trace=true -Dkotlinx.coroutines.debug.enable.mutable.state.flows.stack.trace=true -Ddebugger.async.stack.trace.for.all.threads=true -Dfile.encoding=UTF-8 
+java_command: com.quynhtadinh.finalexample.FinalexampleApplication
+java_class_path (initial): D:\study\source_finalexample\target\classes;C:\Users\tdquy\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\2.7.15\spring-boot-starter-data-jpa-2.7.15.jar;C:\Users\tdquy\.m2\repository\org\springframework\boot\spring-boot-starter-aop\2.7.15\spring-boot-starter-aop-2.7.15.jar;C:\Users\tdquy\.m2\repository\org\aspectj\aspectjweaver\1.9.7\aspectjweaver-1.9.7.jar;C:\Users\tdquy\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\2.7.15\spring-boot-starter-jdbc-2.7.15.jar;C:\Users\tdquy\.m2\repository\com\zaxxer\HikariCP\4.0.3\HikariCP-4.0.3.jar;C:\Users\tdquy\.m2\repository\org\springframework\spring-jdbc\5.3.29\spring-jdbc-5.3.29.jar;C:\Users\tdquy\.m2\repository\jakarta\transaction\jakarta.transaction-api\1.3.3\jakarta.transaction-api-1.3.3.jar;C:\Users\tdquy\.m2\repository\jakarta\persistence\jakarta.persistence-api\2.2.3\jakarta.persistence-api-2.2.3.jar;C:\Users\tdquy\.m2\repository\org\hibernate\hibernate-core\5.6.15.Final\hibernate-core-5.6.15.Final.jar;C:\Users\tdquy\.m2\repository\org\jboss\logging\jboss-logging\3.4.3.Final\jboss-logging-3.4.3.Final.jar;C:\Users\tdquy\.m2\repository\net\bytebuddy\byte-buddy\1.12.23\byte-buddy-1.12.23.jar;C:\Users\tdquy\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\tdquy\.m2\repository\org\jboss\jandex\2.4.2.Final\jandex-2.4.2.Final.jar;C:\Users\tdquy\.m2\repository\com\fasterxml\classmate\1.5.1\classmate-1.5.1.jar;C:\Users\tdquy\.m2\repository\org\hibernate\common\hibernate-commons-annotations\5.1.2.Final\hibernate-commons-annotations-5.1.2.Final.jar;C:\Users\tdquy\.m2\repository\org\glassfish\jaxb\jaxb-runtime\2.3.8\jaxb-runtime-2.3.8.jar;C:\Users\tdquy\.m2\repository\org\glassfish\jaxb\txw2\2.3.8\txw2-2.3.8.jar;C:\Users\tdquy\.m2\repository\com\sun\istack\istack-commons-runtime\3.0.12\istack-commons-runtime-3.0.12.jar;C:\Users\tdquy\.m2\repository\org\springframework\data\spring-data-jpa\2.7.15\spring-data-jpa-2.7.15.jar;C:\Users\tdquy\.m2\repository\or
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 10                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 4194304                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 536870912                                 {product} {ergonomic}
+     bool ManagementServer                         = true                                      {product} {command line}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 8531214336                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 4194304                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 0                                      {pd product} {ergonomic}
+     bool ProfileInterpreter                       = false                                  {pd product} {command line}
+    uintx ProfiledCodeHeapSize                     = 0                                      {pd product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 8531214336                             {manageable} {ergonomic}
+     intx TieredStopAtLevel                        = 1                                         {product} {command line}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot
+JAVA_TOOL_OPTIONS=-Duser.timezone=Asia/Ho_Chi_Minh
+PATH=C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot\bin;C:\Program Files\Eclipse Adoptium\jdk-8.0.492.9-hotspot\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Users\tdquy\AppData\Local\nvm;C:\nvm4w\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\Users\tdquy\AppData\Local\Microsoft\WindowsApps;D:\dev_tools\Intellij_Idea\IntelliJ IDEA 2023.3.8\bin;;C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot\bin;C:\Program Files\Java\apache-maven-3.9.9\bin;C:\Users\tdquy\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\tdquy\AppData\Local\nvm;C:\nvm4w\nodejs;C:\Users\tdquy\AppData\Local\Programs\Antigravity\bin
+USERNAME=tdquy
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 151 Stepping 5, GenuineIntel
+TMP=C:\Users\tdquy\AppData\Local\Temp
+TEMP=C:\Users\tdquy\AppData\Local\Temp
+
+
+
+Periodic native trim disabled
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 10 , 64 bit Build 19041 (10.0.19041.5915)
+OS uptime: 18 days 18:20 hours
+Hyper-V role detected
+
+CPU: total 12 (initial active 12) (6 cores per cpu, 2 threads per core) family 6 model 151 stepping 5 microcode 0x2e, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, clwb, hv
+Processor Information for the first 12 processors :
+  Max Mhz: 2500, Current Mhz: 2500, Mhz Limit: 2500
+
+Memory: 4k page, system-wide physical 32536M (1069M free)
+TotalPageFile size 61798M (AvailPageFile size 388M)
+current process WorkingSet (physical memory assigned to process): 12M, peak: 12M
+current process commit charge ("private bytes"): 71M, peak: 583M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.15+6-LTS) for windows-amd64 JRE (17.0.15+6-LTS), built on Apr  9 2025 22:27:25 by "MicrosoftCorporation" with unknown MS VC++:1939
+
+END.

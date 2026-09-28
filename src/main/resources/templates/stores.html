@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{},
+                                                ~{/fragments/app-fragments :: nav-default},
+                                                ~{:: #stores-main-content},
+                                                ~{/fragments/app-fragments :: copyright}
+                                               )}">
+<head>
+    <title>Hệ thống cửa hàng - QuynhHill Coffee</title>
+</head>
+<body>
+
+<div id="stores-main-content" style="margin-top: 90px;">
+    <div class="container py-5">
+        <h4 class="fw-semibold mb-1">Hệ thống cửa hàng</h4>
+        <p class="text-muted mb-4">QuynhHill Coffee hiện diện tại nhiều chi nhánh trên toàn quốc.</p>
+        <div class="row g-4">
+            <div class="col-md-4" th:each="store: ${stores}">
+                <div class="card store-card h-100">
+                    <img th:src="${store.imageUrl}" alt=""/>
+                    <div class="card-body">
+                        <h6 class="fw-semibold" th:text="${store.name}">QuynhHill Coffee</h6>
+                        <p class="mb-1 small"><i class="ti ti-map-pin me-1"></i><span th:text="${store.address}">Địa chỉ</span></p>
+                        <p class="mb-1 small"><i class="ti ti-phone me-1"></i><span th:text="${store.phone}">SĐT</span></p>
+                        <p class="mb-0 small"><i class="ti ti-clock me-1"></i><span th:text="${store.openTime} + ' - ' + ${store.closeTime}">07:00 - 22:00</span></p>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(stores)}" class="text-center text-muted py-5">Chưa có cửa hàng nào</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

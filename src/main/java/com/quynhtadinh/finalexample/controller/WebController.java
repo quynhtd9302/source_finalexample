@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +27,15 @@ import com.quynhtadinh.finalexample.entity.OrderDetail;
 import com.quynhtadinh.finalexample.entity.Product;
 import com.quynhtadinh.finalexample.entity.Shipping;
 import com.quynhtadinh.finalexample.entity.StatusOrder;
+import com.quynhtadinh.finalexample.entity.Store;
+import com.quynhtadinh.finalexample.entity.User;
 import com.quynhtadinh.finalexample.repository.CategoryRepository;
 import com.quynhtadinh.finalexample.repository.OrderDetailRepository;
 import com.quynhtadinh.finalexample.repository.OrderRepository;
 import com.quynhtadinh.finalexample.repository.ProductRepository;
 import com.quynhtadinh.finalexample.repository.ShippingRepository;
+import com.quynhtadinh.finalexample.repository.StoreRepository;
+import com.quynhtadinh.finalexample.repository.UserRepository;
 import com.quynhtadinh.finalexample.util.MathFunction;
 
 @Controller
@@ -48,6 +54,12 @@ public class WebController {
 
     @Autowired
     OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    StoreRepository storeRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/products")
     public String getListProducts(Model model,
@@ -194,38 +206,17 @@ public class WebController {
         }
         model.addAttribute("listCart", listCart);
         model.addAttribute("totalMoney", MathFunction.getMoney(totalMoney));
+        model.addAttribute("stores", storeRepository.findByActiveTrue());
         return "checkout";
     }
-
-//    @GetMapping("/prepare-shipping")
-//    public String prepareShipping(Model model, @RequestParam(name = "name") String name,
-//                                  @RequestParam(name = "phone") String phone,
-//                                  @RequestParam(name = "address") String address,
-//                                  @RequestParam(name = "note") String note, HttpSession session) {
-//
-//        List<Cart> listCart = (List<Cart>) session.getAttribute("listCart");
-//        if (listCart == null || listCart.size() == 0) {
-//            return "emptyCart";
-//        }
-//        //tính tổng tiền
-//        double totalMoney = 0;
-//        for (Cart c : listCart) {
-//            totalMoney += c.getProductPrice() * c.getQuantity();
-//        }
-//        model.addAttribute("listCart", listCart);
-//        model.addAttribute("totalMoney", MathFunction.getMoney(totalMoney));
-//        model.addAttribute("name", name);
-//        model.addAttribute("phone", phone);
-//        model.addAttribute("address", address);
-//        model.addAttribute("note", note);
-//        return "prepareShipping";
-//    }
 
     @PostMapping("/prepare-shipping")
     public String postPrepareShipping(Model model, @RequestParam(name = "name") String name,
                                       @RequestParam(name = "phone") String phone,
                                       @RequestParam(name = "address") String address,
-                                      @RequestParam(name = "note") String note, HttpSession session) {
+                                      @RequestParam(name = "note") String note,
+                                      @RequestParam(name = "storeId") Long storeId,
+                                      @RequestParam(name = "paymentMethod") String paymentMethod, HttpSession session) {
 
         List<Cart> listCart = (List<Cart>) session.getAttribute("listCart");
         if (listCart == null || listCart.size() == 0) {
@@ -246,6 +237,7 @@ public class WebController {
         Order order = new Order();
         order.setTotalPrice(totalMoney);
         order.setNote(note);
+        order.setPaymentMethod(paymentMethod);
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         order.setCreatedDate(java.sql.Date.valueOf(sdf.format(now)));
@@ -253,19 +245,51 @@ public class WebController {
         statusOrder.setId(1);
         order.setStatus(statusOrder);
         order.setShipping(shipping);
+        storeRepository.findById(storeId).ifPresent(order::setStore);
+
+        String username = getCurrentUsername();
+        if (username != null) {
+            order.setUser(userRepository.findByUsername(username));
+        }
 
         order = orderRepository.save(order);
 
-        for(Cart cart: listCart){
+        for (Cart cart : listCart) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrder(order);
             orderDetail.setQuantity(cart.getQuantity());
             orderDetail.setProductName(cart.getProductName());
             orderDetail.setProductPrice(cart.getProductPrice());
             orderDetail.setProductImage(cart.getProductImageUrl());
+            productRepository.findById(cart.getProductId()).ifPresent(orderDetail::setProduct);
             orderDetailRepository.save(orderDetail);
         }
+
+        session.setAttribute("listCart", new ArrayList<Cart>());
+        model.addAttribute("order", order);
         return "prepareShipping";
+    }
+
+    private String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) {
+            return null;
+        }
+        if (authentication.getPrincipal() instanceof org.springframework.security.oauth2.core.user.OAuth2User) {
+            // Google/Facebook logins: our stored "username" is always the account's
+            // email, but the OAuth2 principal's name may be its provider id instead.
+            Object email = ((org.springframework.security.oauth2.core.user.OAuth2User) authentication.getPrincipal())
+                    .getAttributes().get("email");
+            return email != null ? email.toString() : null;
+        }
+        return authentication.getName();
+    }
+
+    @GetMapping("/stores")
+    public String stores(Model model) {
+        model.addAttribute("stores", storeRepository.findByActiveTrue());
+        return "stores";
     }
 
     @GetMapping("/search")

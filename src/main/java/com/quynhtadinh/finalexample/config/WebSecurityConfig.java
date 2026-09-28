@@ -9,11 +9,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
-
+import com.quynhtadinh.finalexample.security.CustomOAuth2UserService;
+import com.quynhtadinh.finalexample.security.CustomOidcUserService;
 
 @Configuration
 @EnableWebSecurity
@@ -24,59 +23,49 @@ public class WebSecurityConfig {
 	@Autowired
 	private AuthenticationConfiguration authConfiguration;
 
+	@Autowired
+	private CustomOidcUserService customOidcUserService;
+
+	@Autowired
+	private CustomOAuth2UserService customOAuth2UserService;
+
 	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-//
-//	@Bean
-//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		http.csrf().disable().authorizeRequests().antMatchers("/resources/**", "/registration")
-//		.permitAll()
-////		.antMatchers("/view/**").hasAnyRole("USER", "ADMIN")
-////				.antMatchers("/view/**", "/user/**").hasRole("ADMIN")
-//				.anyRequest().authenticated()
-//				.and().formLogin()
-//				.loginPage("/login")
-//				.defaultSuccessUrl("/")
-//				.permitAll()
-//				.and()
-//				.logout()
-//				.permitAll();
-//
-//		return http.build();
-//	}
-//	
-	@Bean
-	public SecurityFilterChain finterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable();
 
-		// Các trang không yêu cầu login
-		http.authorizeRequests().antMatchers( "/resources/**", "/registration").permitAll();
-		// Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
-		// Nếu chưa login, nó sẽ redirect tới trang /login.
-		http.authorizeRequests().antMatchers("/view/**","/customer/**","/image/**","/app").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+		// Các trang công khai: trang chủ, thực đơn/sản phẩm, tìm kiếm, đăng nhập/đăng ký, tài nguyên tĩnh
+		http.authorizeRequests().antMatchers(
+				"/", "/index", "/products", "/detail", "/search", "/stores",
+				"/login", "/registration", "/oauth2/**", "/login/oauth2/**",
+				"/assets/**", "/css/**", "/js/**", "/images/**", "/resources/**")
+				.permitAll();
 
-		// Trang chỉ dành cho ADMIN
-		http.authorizeRequests().antMatchers("/view/**","/user/**","/customer/**","/upload/**","/image/**","/app").access("hasRole('ROLE_ADMIN')");
+		// Khu vực quản trị: chỉ ROLE_ADMIN
+		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 
-		// Khi người dùng đã login, với vai trò XX.
-		// Nhưng truy cập vào trang yêu cầu vai trò YY,
-		// Ngoại lệ AccessDeniedException sẽ ném ra.
+		// Giỏ hàng / đặt hàng: yêu cầu đăng nhập
+		http.authorizeRequests().antMatchers(
+				"/carts", "/add-to-cart", "/delete-cart", "/update-cart",
+				"/checkout", "/prepare-shipping").authenticated();
+
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
-		// Cấu hình cho Login Form.
 		http.authorizeRequests().anyRequest().authenticated()
-		.and().formLogin()//
-				// Submit URL của trang login
-				.loginPage("/login")//
-				.defaultSuccessUrl("/")//
-				.permitAll()
-				// Cấu hình cho Logout Page.
+				.and().formLogin()
+					.loginPage("/login")
+					.defaultSuccessUrl("/")
+					.permitAll()
+				.and().oauth2Login()
+					.loginPage("/login")
+					.defaultSuccessUrl("/")
+					.userInfoEndpoint()
+						.oidcUserService(customOidcUserService)
+						.userService(customOAuth2UserService)
+					.and()
 				.and().logout().permitAll();
-		return http.build();
 
+		return http.build();
 	}
 
 	@Bean

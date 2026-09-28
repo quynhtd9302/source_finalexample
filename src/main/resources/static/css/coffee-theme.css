@@ -1,0 +1,164 @@
+:root {
+  --coffee-dark: #4A3222;
+  --coffee: #6F4E37;
+  --coffee-light: #8B5E3C;
+  --coffee-accent: #C08552;
+  --coffee-cream: #FFF8F0;
+  --coffee-cream-2: #FBEEE0;
+  --coffee-text: #3B2A1C;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  color: var(--coffee-text);
+  background-color: var(--coffee-cream);
+}
+
+a {
+  color: var(--coffee);
+}
+a:hover {
+  color: var(--coffee-dark);
+}
+
+.btn-coffee {
+  background-color: var(--coffee);
+  border-color: var(--coffee);
+  color: #fff;
+}
+.btn-coffee:hover,
+.btn-coffee:focus {
+  background-color: var(--coffee-dark);
+  border-color: var(--coffee-dark);
+  color: #fff;
+}
+.btn-outline-coffee {
+  color: var(--coffee);
+  border-color: var(--coffee);
+}
+.btn-outline-coffee:hover {
+  background-color: var(--coffee);
+  color: #fff;
+}
+
+.bg-light-coffee {
+  background-color: var(--coffee-cream-2);
+  color: var(--coffee-dark);
+  border: 1px solid var(--coffee-accent);
+}
+
+/* ===== Storefront navbar ===== */
+.coffee-navbar {
+  background-color: var(--coffee-dark);
+}
+.coffee-navbar .nav-link,
+.coffee-navbar .navbar-brand {
+  color: var(--coffee-cream) !important;
+}
+.coffee-navbar .nav-link:hover {
+  color: var(--coffee-accent) !important;
+}
+.coffee-navbar .dropdown-menu {
+  background-color: var(--coffee);
+}
+.coffee-navbar .dropdown-item {
+  color: var(--coffee-cream);
+}
+.coffee-navbar .dropdown-item:hover {
+  background-color: var(--coffee-dark);
+  color: #fff;
+}
+
+.cart-badge {
+  background-color: var(--coffee-accent);
+  color: var(--coffee-dark);
+}
+
+/* ===== Hero ===== */
+.hero-section {
+  background-color: var(--coffee-cream-2);
+}
+.hero-section h1 {
+  color: var(--coffee-dark);
+}
+
+/* ===== Product cards ===== */
+.product-card {
+  border: 1px solid #eee0d3;
+  transition: transform .15s ease, box-shadow .15s ease;
+  height: 100%;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(74, 50, 34, .12);
+}
+.product-card img {
+  background-color: var(--coffee-cream-2);
+  object-fit: cover;
+  height: 200px;
+  width: 100%;
+}
+.product-price {
+  color: var(--coffee);
+  font-weight: 600;
+}
+
+.category-panel a {
+  text-decoration: none;
+}
+.category-panel .subcategory-link {
+  display: block;
+  padding: 4px 0 4px 12px;
+  color: var(--coffee-text);
+}
+.category-panel .subcategory-link:hover {
+  color: var(--coffee);
+}
+
+/* ===== Store cards ===== */
+.store-card img {
+  height: 160px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* ===== Footer ===== */
+.coffee-footer {
+  background-color: var(--coffee-dark);
+  color: var(--coffee-cream);
+}
+.coffee-footer a {
+  color: var(--coffee-cream);
+}
+.coffee-footer a:hover {
+  color: var(--coffee-accent);
+}
+
+/* ===== Auth pages ===== */
+.auth-card {
+  max-width: 420px;
+  margin: 60px auto;
+}
+.auth-card .card {
+  border: none;
+  box-shadow: 0 10px 30px rgba(74, 50, 34, .15);
+}
+
+/* ===== Admin dashboard ===== */
+.stat-card {
+  border-left: 4px solid var(--coffee);
+}
+.avatar-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--coffee-cream-2);
+  color: var(--coffee);
+}
+
+.badge.bg-light-coffee {
+  background-color: var(--coffee-cream-2) !important;
+}
